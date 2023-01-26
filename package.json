@@ -1,0 +1,28 @@
+{
+  "name": "binpack_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development nodemon server.js",
+    "prod": "NODE_ENV=production nodemon server.js",
+    "debug": "ndb server.js"
+  },
+  "author": "_root",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "generate-serial-key": "^2.0.0",
+    "generate-serial-number": "^0.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.7.3",
+    "morgan": "^1.10.0",
+    "ndb": "^0.2.4",
+    "nodemon": "^2.0.20",
+    "slugify": "^1.6.5",
+    "validator": "^13.7.0"
+  }
+}
