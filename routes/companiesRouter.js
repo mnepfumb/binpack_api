@@ -9,13 +9,13 @@ const {
 } = require("../controllers/companiesControllers");
 
 const {
-    protect
+    verifyAccessToken
 } = require("../controllers/authController");
 
 const companyRouter = express.Router();
 
 // Routers
-companyRouter.route("/").get(protect, getAllCompany).post(protect, createCompany);
-companyRouter.route("/:id").get(protect, getSingleCompany).patch(protect, updateCompany).delete(protect, deleteSingleCompany);
+companyRouter.route("/").get(getAllCompany).post(verifyAccessToken, createCompany);
+companyRouter.route("/:id").get(verifyAccessToken, getSingleCompany).patch(verifyAccessToken, updateCompany).delete(verifyAccessToken, deleteSingleCompany);
 
 module.exports = companyRouter;

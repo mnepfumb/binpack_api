@@ -5,41 +5,35 @@ const APIFeatures = require("./../utils/apiFeatures");
 
 // Responses
 // exports.getAllManifest = catchAsync ( async  (req, res) => {
-//     const manifest = await MANIFEST.find();
+//     const manifests = await MANIFEST.find();
 
 //     res.status(200).json({
 //         status: "success",
 //         // requestTime: req.requestTime,
-//         results: manifest.length,
-//         data: {
-//             manifest,
-//         }
+//         results: manifests.length,
+//         manifests: manifests
 //     });
 // });
 
 exports.createManifest = catchAsync ( async  (req, res) => {
-    const manifest = await MANIFEST.create(req.body);
+    const manifests = await MANIFEST.create(req.body);
 
     res.status(201).json({
         status: "success",
-        data: {
-            manifest
-        }
+        manifests: manifests
     });
 });
 
 exports.getSingleManifest = catchAsync ( async  (req, res) => {
-    const manifest = await MANIFEST.findById(req.params.id);
+    const manifests = await MANIFEST.findById(req.params.id);
 
-    if(!manifest) {
+    if(!manifests) {
         return next(new AppError('No Manifest found with that ID'), 404)
     }
     
     res.status(200).json({
         status: "success",
-        data: {
-            manifest,
-        }
+        manifests: manifests
     });
 });
 
@@ -48,40 +42,36 @@ exports.getManifestbyRequisionId = catchAsync ( async  (req, res, next) => {
     // console.log(req.query);
     const features =  new APIFeatures(MANIFEST.find(), req.query)
     .filter().sort();
-    const manifest = await features.query;
-    console.log(manifest);
-    console.log(manifest.length);
+    const manifests = await features.query;
+    console.log(manifests);
+    console.log(manifests.length);
     res.status(200).json({
         status: "success",
-        results: manifest.length,
-        data: {
-            manifest,
-        }
+        results: manifests.length,
+        manifests: manifests
     });
 });
 
 exports.updateManifest = catchAsync ( async  (req, res) => {
-    const manifest = await MANIFEST.findByIdAndUpdate(req.params.id, req.body, {
+    const manifests = await MANIFEST.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
     });
 
-    if(!manifest) {
+    if(!manifests) {
         return next(new AppError('No Manifest found with that ID'), 404)
     }
 
     res.status(200).json({
         status: "success",
-        data: {
-            manifest,
-        }
+        manifests: manifests
     });
 });
 
 exports.deleteSingleManifest = catchAsync ( async  (req, res) => {
-    const manifest = await MANIFEST.findByIdAndDelete(req.params.id);
+    const manifests = await MANIFEST.findByIdAndDelete(req.params.id);
 
-    if(!manifest) {
+    if(!manifests) {
         return next(new AppError('No Manifest found with that ID'), 404)
     }
 

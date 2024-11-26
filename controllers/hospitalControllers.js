@@ -17,9 +17,7 @@ exports.getAllHospital = catchAsync ( async  (req, res) => {
         status: "success",
         // requestTime: req.requestTime,
         results: hospital.length,
-        data: {
-            hospital,
-        }
+        hospital: hospital
     });
 });
 
@@ -27,9 +25,7 @@ exports.createHospital = catchAsync ( async  (req, res) => {
     const hospital = await HOSPITAL.create(req.body);
     res.status(201).json({
         status: "success",
-        data: {
-            hospital
-        }
+        hospital: hospital
     });
 });
 
@@ -37,9 +33,7 @@ exports.getSingleHospital = catchAsync ( async  (req, res) => {
     const hospital = await HOSPITAL.findById(req.params.id);
     res.status(200).json({
         status: "success",
-        data: {
-            hospital,
-        }
+        hospital: hospital
     });
 });
 
@@ -51,9 +45,7 @@ exports.updateHospital = catchAsync ( async  (req, res) => {
 
     res.status(200).json({
         status: "success",
-        data: {
-            hospital,
-        }
+        hospital: hospital
     });
 });
 

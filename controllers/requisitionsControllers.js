@@ -4,9 +4,9 @@ const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 
 
-exports.getAllRequisition = catchAsync ( async  () => {
+exports.getAllRequisition = catchAsync ( async  (req, res, next) => {
     console.log('getAllRequisition');
-    // console.log(req.query);
+    console.log(req.query);
     // const features = new APIFeatures(REQUISITION.find(), req.query)
     //     .filter()
     //     .sort()
@@ -14,41 +14,39 @@ exports.getAllRequisition = catchAsync ( async  () => {
     //     .pagination();
 
     // const requisition = await features.query;
-    const requisition = await REQUISITION.find();
-    console.log(requisition.length);
+    const requisitions = await REQUISITION.find();
+    console.log(requisitions.length);
+    console.log(requisitions);
+
+    if (!requisitions) {
+        return next(new AppError('No requisitions found', 404));
+    }
 
     res.status(200).json({
         status: "success",
-        results: requisition.length,
-        data: {
-            requisition,
-        }
+        requisitions: requisitions,
     });
 });
 
 exports.createRequisition = catchAsync ( async  (req, res, next) => {
-    const requisition = await REQUISITION.create(req.body);
+    const requisitions = await REQUISITION.create(req.body);
     res.status(201).json({
         status: "success",
-        data: {
-            requisition
-        }
+        requisitions: requisitions,
     });
 });
 
 exports.getSingleRequisition = catchAsync ( async  (req, res, next) => {
     console.log('getSingleRequisition');
-    const requisition = await REQUISITION.findById(req.params.id);
+    const requisitions = await REQUISITION.findById(req.params.id);
 
-    if(!requisition) {
+    if(!requisitions) {
         return next(new AppError('No Requisition found with that ID'), 404)
     }
 
     res.status(200).json({
         status: "success",
-        data: {
-            requisition,
-        }
+        requisitions: requisitions,
     });
 });
 
@@ -58,37 +56,33 @@ exports.getRequisitionByCompany = catchAsync ( async  (req, res, next) => {
     // const requisition_list;
     const features =  new APIFeatures(REQUISITION.find(), req.query).filter().sort();
     // console.log(features);
-    const requisition = await features.query;
+    const requisitions = await features.query;
     // // const requisition = await REQUISITION.find().filter();
     // console.log(requisition);
-    console.log(requisition.length);
+    console.log(requisitions.length);
     // console.log(requisition);
     res.status(200).json({
         status: "success",
-        results: requisition.length,
-        data: {
-            requisition,
-        }
+        results: requisitions.length,
+        requisitions: requisitions,
     });
 });
 
 exports.updateRequisition = catchAsync ( async  (req, res, next) => {
     console.log('updateRequisition');
     console.log(req.params.id);
-    const requisition = await REQUISITION.findByIdAndUpdate(req.params.id, req.body, {
+    const requisitions = await REQUISITION.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
     });
 
-    if(!requisition) {
+    if(!requisitions) {
         return next(new AppError('No Requisition found with that ID'), 404)
     }
     
     res.status(200).json({
         status: "success",
-        data: {
-            requisition,
-        }
+        requisitions: requisitions,
     });
 });
 
@@ -121,14 +115,6 @@ exports.getRequisitionStats = catchAsync ( async (req, res, next) => {
                 '_id' : {'created_date': '$created_date'},
                 'wasteType' : { '$sum' : 1},
                 'createManifest' : { '$sum' : 1},
-                
-                // $count : {createManifest}
-                // 'createManifest' : {
-                //     // '$sum' : '$createManifest'
-                //     // count: { $sum: 1 }
-                // }
-                // '$week' : '$created_date',
-                // '$sum' : '$createManifest'
 
             }
         },

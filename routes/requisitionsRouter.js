@@ -13,7 +13,7 @@ const {
 } = require("../controllers/requisitionsControllers");
 
 const {
-    protect
+    verifyAccessToken
 } = require("../controllers/authController");
 
 const requisitionsRouter = express.Router();
@@ -26,8 +26,8 @@ requisitionsRouter.route("/requisition-stats").get(getRequisitionStats);
 // requisitionsRouter.route("/requisition-plan/:year").get(getRequisitionPlan);
 
 // Routers
-requisitionsRouter.route("/hospital/").get(protect, getRequisitionByCompany);
-requisitionsRouter.route("/").get(protect, getAllRequisition).post(createRequisition);
-requisitionsRouter.route("/:id").get(protect, getSingleRequisition).put(protect, updateRequisition).delete(protect, deleteSingleRequisition);
+requisitionsRouter.route("/hospital/").get(verifyAccessToken, getRequisitionByCompany);
+requisitionsRouter.route("/").get( getAllRequisition).post(createRequisition);
+requisitionsRouter.route("/:id").get(verifyAccessToken, getSingleRequisition).put(verifyAccessToken, updateRequisition).delete(verifyAccessToken, deleteSingleRequisition);
 
 module.exports = requisitionsRouter;

@@ -9,13 +9,13 @@ const {
 } = require("../controllers/hospitalControllers");
 
 const {
-    protect
+    verifyAccessToken
 } = require("../controllers/authController");
 
 const hospitalRouter = express.Router();
 
 // Routers
-hospitalRouter.route("/").get(protect, getAllHospital).post(protect, createHospital);
-hospitalRouter.route("/:id").get(protect, getSingleHospital).patch(protect, updateHospital).delete(protect, deleteSingleHospital);
+hospitalRouter.route("/").get(getAllHospital).post(createHospital);
+hospitalRouter.route("/:id").get(verifyAccessToken, getSingleHospital).patch(verifyAccessToken, updateHospital).delete(verifyAccessToken, deleteSingleHospital);
 
 module.exports = hospitalRouter;

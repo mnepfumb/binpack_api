@@ -9,14 +9,14 @@ const {
 } = require("../controllers/locationTrackingControllers");
 
 const {
-    protect
+    verifyAccessToken
 } = require("../controllers/authController");
 
 
 const locationTrackingRouter = express.Router();
 
 // Routers
-locationTrackingRouter.route("/").get(protect, getAllLocationTracker).post(protect, createLocationTracker);
-locationTrackingRouter.route("/:id").get(protect, getSingleLocationTracker).patch(protect, updateLocationTracker);
+locationTrackingRouter.route("/").get(verifyAccessToken, getAllLocationTracker).post(verifyAccessToken, createLocationTracker);
+locationTrackingRouter.route("/:id").get(verifyAccessToken, getSingleLocationTracker).patch(verifyAccessToken, updateLocationTracker);
 
 module.exports = locationTrackingRouter;

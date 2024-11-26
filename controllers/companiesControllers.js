@@ -17,9 +17,7 @@ exports.getAllCompany = catchAsync ( async  (req, res) => {
         status: "success",
         // requestTime: req.requestTime,
         results: company.length,
-        data: {
-            company,
-        }
+        company: company
     });
 });
 
@@ -27,9 +25,7 @@ exports.createCompany = catchAsync ( async  (req, res) => {
     const company = await COMPANIES.create(req.body);
     res.status(201).json({
         status: "success",
-        data: {
-            company
-        }
+        company: company
     });
 });
 
@@ -37,9 +33,7 @@ exports.getSingleCompany = catchAsync ( async  (req, res) => {
     const company = await COMPANIES.findById(req.params.id);
     res.status(200).json({
         status: "success",
-        data: {
-            company,
-        }
+        company: company
     });
 });
 
@@ -51,9 +45,7 @@ exports.updateCompany = catchAsync ( async  (req, res) => {
 
     res.status(200).json({
         status: "success",
-        data: {
-            company,
-        }
+        company: company
     });
 });
 

@@ -7,7 +7,9 @@ exports.getAllWasteType = catchAsync ( async  (req, res) => {
     res.status(200).json({
         status: "success",
         results: newWasteType.length,
-        newWasteType: newWasteType
+        data: {
+            newWasteType,
+        }
     });
 });
 
@@ -16,7 +18,9 @@ exports.createWasteType = catchAsync ( async  (req, res) => {
 
     res.status(201).json({
         status: "success",
-        newWasteType: newWasteType
+        data: {
+            newWasteType
+        }
     });
 });
 

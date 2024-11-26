@@ -7,7 +7,8 @@ process.on("uncaughtException", (err) => {
     process.exit(1);
 });
 
-require('dotenv/config');
+// require('dotenv/config');
+require('dotenv').config();
 
 const DB = process.env.DB_CONNECTION.replace("<PASSWORD>", process.env.DB_PASSWORD);
 
@@ -21,9 +22,9 @@ mongoose
         // console.log(con.connection),
         console.log('DB Connected Successfully');
     })
-    // .catch((err) => console.log('ERROR'))
+    .catch((err) => console.log('DB Connection ERROR'))
 
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT || 3500; 
 
 app.listen(port, () => {
     console.log(`App running on port ${port}....`);
