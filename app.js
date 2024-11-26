@@ -25,8 +25,8 @@ require('dotenv').config();
 const corsOptions = {
     origin: process.env.ORIGIN_URL, // Replace with your frontend URL
     optionsSuccessStatus: 200,  // some legacy browsers (IE11, various SmartTVs) choke on 204
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
+    "methods": ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+    // "preflightContinue": false,
     credentials: true // This allows the server to accept cookies from the client
 };
 
